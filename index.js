@@ -74,4 +74,8 @@ function allWagesFor(employeeRecord) {
 	}, 0);
 }
 
-function calculatePayroll() {}
+function calculatePayroll(allEmployeeRecords) {
+	return allEmployeeRecords.reduce((totalPayroll, employee) => {
+		return totalPayroll + allWagesFor(employee);
+	}, 0);
+}
