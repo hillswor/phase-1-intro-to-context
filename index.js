@@ -59,5 +59,19 @@ function hoursWorkedOnDate(employeeRecord, date) {
 
 function wagesEarnedOnDate(employeeRecord, date) {
 	const hours = hoursWorkedOnDate(employeeRecord, date);
-	return employeeRecord.payPerHour * hours;
+	return hours * employeeRecord.payPerHour;
 }
+
+function allWagesFor(employeeRecord) {
+	let dates = employeeRecord.timeInEvents.map((event) => {
+		return event.date;
+	});
+	let wages = dates.map((date) => {
+		return wagesEarnedOnDate(employeeRecord, date);
+	});
+	return wages.reduce((totalWages, dailyWages) => {
+		return totalWages + dailyWages;
+	}, 0);
+}
+
+function calculatePayroll() {}
