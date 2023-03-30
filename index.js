@@ -40,3 +40,24 @@ function createTimeOutEvent(employeeRecord, timeOutData) {
 	employeeRecord.timeOutEvents.push(timeOutObject);
 	return employeeRecord;
 }
+
+function hoursWorkedOnDate(employeeRecord, date) {
+	const timeInEvents = employeeRecord.timeInEvents.filter(
+		(event) => event.date === date
+	);
+	const timeOutEvents = employeeRecord.timeOutEvents.filter(
+		(event) => event.date === date
+	);
+	let totalHoursWorked = 0;
+	for (let i = 0; i < timeInEvents.length; i++) {
+		const hoursWorked =
+			(timeOutEvents[i].hour - timeInEvents[i].hour) / 100;
+		totalHoursWorked += hoursWorked;
+	}
+	return totalHoursWorked;
+}
+
+function wagesEarnedOnDate(employeeRecord, date) {
+	const hours = hoursWorkedOnDate(employeeRecord, date);
+	return employeeRecord.payPerHour * hours;
+}
